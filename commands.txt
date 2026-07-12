@@ -1,3 +1,0 @@
-
-SET k v
-GET k
