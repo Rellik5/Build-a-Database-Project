@@ -15,18 +15,18 @@ class Log:
         # record is a list like ["SET", "name", "roman"]
         self._file.write(json.dumps(record) + "\n")
         self._file.flush()                  # push out of Python's buffer
-        os.fsync(self._file.fileno())       # force the OS to actually write to disk
+        os.fsync(self._file.fileno())       # force the OS to write to disk
 
     def replay(self, apply_function):
         if not os.path.exists(self._path):
-            return                          # first run, no file yet -- nothing to replay
+            return                          # first run, nothing to replay
         with open(self._path, "r") as f:
             for line in f:
                 line = line.strip()
                 if not line:
                     continue
                 record = json.loads(line)   # text back into a list
-                apply_function(record)      # hand it to whoever knows what to do with it
+                apply_function(record)
 
     def close(self):
         if self._file is not None:
