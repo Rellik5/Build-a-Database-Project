@@ -58,6 +58,7 @@ def test_commit_persists(tmp_path):
     run(["BEGIN", "SET k saved", "COMMIT", "EXIT"], tmp_path)
     assert run(["GET k", "EXIT"], tmp_path) == ["saved"]
 
+
 def test_range_ends_with_end_marker(tmp_path):
     out = run(["MSET b bb c cc d dd", "RANGE b d", "EXIT"], tmp_path)
     assert out == ["OK", "b", "c", "d", "END"]
